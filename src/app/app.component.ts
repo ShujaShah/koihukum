@@ -11,7 +11,7 @@ import { Menu } from '../pages/menu/menu';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = Menu;
+  rootPage: any = 'Menu';
 
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {

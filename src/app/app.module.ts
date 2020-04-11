@@ -18,11 +18,11 @@ import { HttpModule } from '@angular/http';
 import {Checkout} from '../pages/checkout/checkout'
 import { PayPal } from '@ionic-native/paypal';
 import { SearchPage } from '../pages/search/search';
+import {WoocommerceProvider} from '../providers/woocommerce/woocommerce';
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    Menu,
     ProductsByCategory,
     ProductDetails,
     Cart,
@@ -41,7 +41,6 @@ import { SearchPage } from '../pages/search/search';
   entryComponents: [
     MyApp,
     HomePage,
-    Menu,
     ProductsByCategory,
     ProductDetails,
     Cart,
@@ -55,7 +54,7 @@ import { SearchPage } from '../pages/search/search';
     StatusBar,
     SplashScreen,
     PayPal,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler}, WoocommerceProvider
   ]
 })
 export class AppModule {}

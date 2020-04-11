@@ -7,7 +7,9 @@ import * as WC from 'woocommerce-api';
 import { ProductsByCategory } from '../products-by-category/products-by-category'
 import { Storage } from '@ionic/storage';
 import { Cart } from '../cart/cart';
+import { WoocommerceProvider } from '../../providers/woocommerce/woocommerce';
 
+@IonicPage({})
 @Component({
   selector: 'page-menu',
   templateUrl: 'menu.html',
@@ -22,17 +24,12 @@ export class Menu {
   user: any;
   
   constructor(public navCtrl: NavController, public navParams: NavParams, 
-    public storage: Storage,public modalCtrl:  ModalController) {
+    public storage: Storage,public modalCtrl:  ModalController, private WP : WoocommerceProvider) {
     this.homePage = HomePage;
     this.categories = [];
     this.user= {};
     
-    this.WooCommerce = WC({
-      url: "http://localhost/wordpress/",
-      consumerKey: "ck_16032375998291a0dbd470806ff5f1e55c5932a9",
-      consumerSecret: "cs_b9eb4e6a1f8d2a6085f7f92fd12a1db0adefbfda",
-    });
-
+    this.WooCommerce = WP.init();
     this.WooCommerce.getAsync("products/categories").then((data)=>{
       console.log(JSON.parse(data.body).product_categories);
 
@@ -65,6 +62,7 @@ export class Menu {
           this.categories.push(temp[i]);
         }
       }
+      
     },(err)=>{
       console.log(err)
     })

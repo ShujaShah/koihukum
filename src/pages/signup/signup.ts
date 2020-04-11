@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
 import * as WC from 'woocommerce-api';
+import { WoocommerceProvider } from '../../providers/woocommerce/woocommerce';
 
 @Component({
   selector: 'page-signup',
@@ -13,17 +14,14 @@ export class Signup {
   billing_shipping_same: boolean;
   WooCommerce: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController,
+     public alertCtrl: AlertController, private WP: WoocommerceProvider) {
 
     this.newUser.billing_address = {};
     this.newUser.shipping_address = {};
     this.billing_shipping_same = false; 
 
-    this.WooCommerce = WC({
-        url: "http://localhost/wordpress/",
-        consumerKey: "ck_16032375998291a0dbd470806ff5f1e55c5932a9",
-        consumerSecret: "cs_b9eb4e6a1f8d2a6085f7f92fd12a1db0adefbfda",
-      });
+    this.WooCommerce = WP.init();
   }
 
   ionViewDidLoad() {

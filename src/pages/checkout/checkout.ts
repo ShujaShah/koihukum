@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, IonicPage } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import {Menu} from '../menu/menu';
 import { HomePage} from '../home/home';
 import * as WC from 'woocommerce-api';
 import { PayPal, PayPalPayment, PayPalConfiguration } from '@ionic-native/paypal';
+import { WoocommerceProvider } from '../../providers/woocommerce/woocommerce';
+@IonicPage({})
 @Component({
   selector: 'page-checkout',
   templateUrl: 'checkout.html',
@@ -18,7 +21,7 @@ export class Checkout {
   userInfo: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage,
-    public alertCtrl:AlertController, public payPal : PayPal) {
+    public alertCtrl:AlertController, public payPal : PayPal, private WP: WoocommerceProvider) {
     this.newOrder = {};
     this.newOrder.billing_address = {};
     this.newOrder.shipping_address = {};
@@ -30,11 +33,7 @@ export class Checkout {
       { method_id: "cod", method_title: "Cash on Delivery" },
       { method_id: "paypal", method_title: "PayPal" }];
 
-      this.WooCommerce = WC({
-        url: "http://localhost/wordpress/",
-        consumerKey: "ck_16032375998291a0dbd470806ff5f1e55c5932a9",
-        consumerSecret: "cs_b9eb4e6a1f8d2a6085f7f92fd12a1db0adefbfda",
-      });
+      this.WooCommerce = WP.init();
 
     this.storage.get("userLoginInfo").then( (userLoginInfo) => {
 

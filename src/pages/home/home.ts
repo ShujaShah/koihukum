@@ -5,6 +5,7 @@ import {SearchPage} from '../search/search';
 
 
 import * as WC from 'woocommerce-api';
+import { WoocommerceProvider } from '../../providers/woocommerce/woocommerce';
 
 @Component({
   selector: 'page-home',
@@ -20,15 +21,11 @@ export class HomePage {
 
   @ViewChild('productSlides') productSlides: Slides;
 
-  constructor(public navCtrl: NavController, public toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController, public toastCtrl: ToastController, private WP:WoocommerceProvider) {
 
     this.page = 2;
 
-    this.WooCommerce = WC({
-      url: "http://localhost/wordpress/",
-      consumerKey: "ck_16032375998291a0dbd470806ff5f1e55c5932a9",
-      consumerSecret: "cs_b9eb4e6a1f8d2a6085f7f92fd12a1db0adefbfda",
-    });
+    this.WooCommerce= WP.init();
 
     this.loadMoreProducts(null);
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController } from 'ionic-angular';
+import { NavController, NavParams, ViewController,ToastController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Checkout } from '../checkout/checkout';
 import {Login} from '../login/login';
@@ -15,7 +15,7 @@ export class Cart {
   showEmptyCartMessage: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, 
-    public storage: Storage, public viewCtrl: ViewController) {
+    public storage: Storage, public viewCtrl: ViewController, public toastController: ToastController) {
   
     this.total = 0.0;
     
@@ -76,6 +76,36 @@ export class Cart {
         this.navCtrl.push(Login, {next: Checkout})
       }
     })
+
+  }
+  changeQty(item, i, change){
+
+    let price = 0;
+    let qty = 0;
+
+    price = parseFloat(item.product.price);
+    qty = item.qty;
+
+    if(change < 0 && item.qty == 1){
+      return;
+    }
+
+    qty = qty + change;
+    item.qty = qty;
+    item.amount = qty * price;
+
+    this.cartItems[i] = item;
+
+    this.storage.set("cart", this.cartItems).then( ()=> {
+
+      this.toastController.create({
+        message: "Cart Updated.",
+        duration: 2000,
+        showCloseButton: true
+      }).present();
+
+    });
+
 
   }
 
