@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, ToastController, AlertController,LoadingController } from 'ionic-angular';
 import * as WC from 'woocommerce-api';
 import { WoocommerceProvider } from '../../providers/woocommerce/woocommerce';
 
@@ -15,7 +15,8 @@ export class Signup {
   WooCommerce: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController,
-     public alertCtrl: AlertController, private WP: WoocommerceProvider) {
+     public alertCtrl: AlertController, private WP: WoocommerceProvider, public loadingCtrl: LoadingController)
+     {
 
     this.newUser.billing_address = {};
     this.newUser.shipping_address = {};
@@ -79,6 +80,8 @@ export class Signup {
   }
 
   signup(){
+
+    this.presentLoadingDefault();
 
       let customerData = {
         customer : {}
@@ -144,6 +147,18 @@ export class Signup {
 
       })
 
+    }
+    presentLoadingDefault() {
+      let loading = this.loadingCtrl.create({
+        content: 'Please wait...',
+        spinner : 'bubbles'
+      });
+    
+      loading.present();
+    
+      setTimeout(() => {
+        loading.dismiss();
+      }, 15000);
     }
 
 }

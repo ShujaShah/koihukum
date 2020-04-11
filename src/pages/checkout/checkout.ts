@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, IonicPage } from 'ionic-angular';
+import { NavController, NavParams, AlertController, IonicPage, LoadingController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import {Menu} from '../menu/menu';
 import { HomePage} from '../home/home';
@@ -21,7 +21,8 @@ export class Checkout {
   userInfo: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage,
-    public alertCtrl:AlertController, public payPal : PayPal, private WP: WoocommerceProvider) {
+    public alertCtrl:AlertController, public payPal : PayPal, private WP: WoocommerceProvider,
+    public loadingCtrl: LoadingController) {
     this.newOrder = {};
     this.newOrder.billing_address = {};
     this.newOrder.shipping_address = {};
@@ -62,6 +63,7 @@ export class Checkout {
   }
 
   placeOrder(){
+    this.presentLoadingDefault();
 
     let orderItems: any[] = [];
     let data: any = {};
@@ -194,6 +196,18 @@ export class Checkout {
     }
 
 
+  }
+  presentLoadingDefault() {
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...',
+      spinner : 'bubbles'
+    });
+  
+    loading.present();
+  
+    setTimeout(() => {
+      loading.dismiss();
+    }, 15000);
   }
 
 }

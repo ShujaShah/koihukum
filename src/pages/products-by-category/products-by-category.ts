@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController,LoadingController, NavParams } from 'ionic-angular';
 import * as WC from 'woocommerce-api';
 import {ProductDetails}from '../product-details/product-details';
 import { WoocommerceProvider } from '../../providers/woocommerce/woocommerce';
@@ -15,12 +15,15 @@ export class ProductsByCategory {
   page: number;
   category: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private WP: WoocommerceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private WP: WoocommerceProvider, 
+    public loadingCtrl: LoadingController) {
 
     this.page = 1;
     this.category = this.navParams.get("category");
 
     this.WooCommerce = WP.init();
+
+    this.presentLoadingDefault();
 
 
     this.WooCommerce.getAsync("products?filter[category]=" + this.category.slug).then((data) => {
@@ -53,5 +56,18 @@ export class ProductsByCategory {
   openProductPage(product){
     this.navCtrl.push(ProductDetails,{ "product":product} );
   }
+  presentLoadingDefault() {
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...',
+      spinner: 'bubbles'
+    });
+  
+    loading.present();
+  
+    setTimeout(() => {
+      loading.dismiss();
+    }, 7000);
+  }
+  
 
 }
