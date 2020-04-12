@@ -23,11 +23,14 @@ export class ProductsByCategory {
 
     this.WooCommerce = WP.init();
 
-    this.presentLoadingDefault();
-
-
-    this.WooCommerce.getAsync("products?filter[category]=" + this.category.slug).then((data) => {
-      console.log(JSON.parse(data.body));
+      let loading = this.loadingCtrl.create({
+        content: 'Please wait...',
+        spinner: 'bubbles'
+      });
+      loading.present();
+       
+      this.WooCommerce.getAsync("products?filter[category]=" + this.category.slug).then((data) => {
+      console.log(JSON.parse(data.body)); loading.dismiss();
       this.products = JSON.parse(data.body).products;
     }, (err) => {
       console.log(err)

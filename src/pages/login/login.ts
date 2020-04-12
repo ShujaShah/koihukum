@@ -22,13 +22,21 @@ export class Login {
   }
 
   login(){
-    this.presentLoadingDefault();
+    //first create the loader...
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...',
+      spinner: 'bubbles'
+    });
+
+    loading.present(); // present the loader....
+
     this.http.get("http://localhost/wordpress/api/auth/generate_auth_cookie/?insecure=cool&username=" + this.username + "&password=" + this.password)
     .subscribe( (res) => {
-      console.log(res.json());
+      console.log(res.json()); 
 
       let response = res.json();
-     // this.loadingCtrl.present();
+
+        loading.dismiss(); //dismiss the loader...
 
       if(response.error){
         this.toastCtrl.create({
@@ -37,7 +45,6 @@ export class Login {
         }).present();
         return;
       }
-
 
       this.storage.set("userLoginInfo", response).then( (data) =>{
 
@@ -66,18 +73,7 @@ export class Login {
 
 
   }
-  presentLoadingDefault() {
-    let loading = this.loadingCtrl.create({
-      content: 'Please wait...',
-      spinner: 'bubbles'
-    });
   
-    loading.present();
-  
-    setTimeout(() => {
-      loading.dismiss();
-    }, 5000);
-  }
   openSignupPage(){
     this.navCtrl.push(Signup);
   }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController } from 'ionic-angular';
+import { NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
 import * as WC from 'woocommerce-api';
 import { ProductDetails } from '../product-details/product-details';
 import { WoocommerceProvider } from '../../providers/woocommerce/woocommerce';
@@ -16,15 +16,23 @@ export class SearchPage {
   page: number = 2;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController,
-    private WP: WoocommerceProvider) {
+    private WP: WoocommerceProvider, public loadingCtrl: LoadingController) {
+
     console.log(this.navParams.get("searchQuery"));
     this.searchQuery = this.navParams.get("searchQuery");
+   
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...',
+      spinner: 'bubbles'
+    });
+    loading.present();
 
     this.WooCommerce = WP.init();
     this.WooCommerce.getAsync("products?filter[q]=" + this.searchQuery).then((searchData) => {
-      this.products = JSON.parse(searchData.body).products;
+      this.products = JSON.parse(searchData.body).products; 
+      
+      loading.dismiss();
     });
-
 
   }
 
@@ -53,6 +61,18 @@ export class SearchPage {
   }
   openProductPage(product){
     this.navCtrl.push(ProductDetails,{ "product":product} );
+  }
+  presentLoadingDefault() {
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...',
+      spinner: 'bubbles'
+    });
+  
+    loading.present();
+  
+    setTimeout(() => {
+      loading.dismiss();
+    }, 5000);
   }
 
 }

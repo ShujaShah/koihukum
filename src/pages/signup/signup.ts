@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController, AlertController,LoadingController } from 'ionic-angular';
 import * as WC from 'woocommerce-api';
 import { WoocommerceProvider } from '../../providers/woocommerce/woocommerce';
+import { HomePage } from '../home/home';
+import { Login } from '../login/login';
 
 @Component({
   selector: 'page-signup',
@@ -81,7 +83,12 @@ export class Signup {
 
   signup(){
 
-    this.presentLoadingDefault();
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...',
+      spinner: 'bubbles'
+    });
+
+    loading.present();
 
       let customerData = {
         customer : {}
@@ -126,6 +133,8 @@ export class Signup {
       this.WooCommerce.postAsync('customers', customerData).then( (data) => {
 
         let response = (JSON.parse(data.body));
+        
+        loading.dismiss();
 
         if(response.customer){
           this.alertCtrl.create({
@@ -134,7 +143,7 @@ export class Signup {
             buttons: [{
               text: "Login",
               handler: ()=> {
-                //TODO
+                this.navCtrl.push(Login);
               }
             }]
           }).present();
@@ -148,17 +157,6 @@ export class Signup {
       })
 
     }
-    presentLoadingDefault() {
-      let loading = this.loadingCtrl.create({
-        content: 'Please wait...',
-        spinner : 'bubbles'
-      });
     
-      loading.present();
-    
-      setTimeout(() => {
-        loading.dismiss();
-      }, 15000);
-    }
 
 }

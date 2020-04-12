@@ -18,5 +18,6 @@ export class WoocommerceProvider {
   init(){
     return this.Woocommerce;
   }
+  
 
 }

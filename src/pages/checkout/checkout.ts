@@ -63,7 +63,13 @@ export class Checkout {
   }
 
   placeOrder(){
-    this.presentLoadingDefault();
+
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...',
+      spinner: 'bubbles'
+    });
+
+    loading.present();
 
     let orderItems: any[] = [];
     let data: any = {};
@@ -178,6 +184,8 @@ export class Checkout {
 
           let response = (JSON.parse(data.body).order);
 
+          loading.dismiss();
+
           this.alertCtrl.create({
             title: "Order Placed Successfully",
             message: "Your order has been placed successfully. Your order number is " + response.order_number,
@@ -197,17 +205,5 @@ export class Checkout {
 
 
   }
-  presentLoadingDefault() {
-    let loading = this.loadingCtrl.create({
-      content: 'Please wait...',
-      spinner : 'bubbles'
-    });
-  
-    loading.present();
-  
-    setTimeout(() => {
-      loading.dismiss();
-    }, 15000);
-  }
-
+ 
 }
