@@ -1,3 +1,20 @@
+.toolbar-background-md {
+  border-color: #b2b2b2;
+  background: 	#9370DB;
+}
+
+.bar-button-default-md, .bar-button-clear-md-default, .bar-button-md-default {
+  color: #ffffff;
+  background-color: transparent;
+}
+
+.toolbar-title-md {
+  padding: 0 12px;
+  font-size: 2rem;
+  font-weight: 500;
+  color: #ffffff;
+}
+
 .card-background-page {
 
   ion-card {
@@ -7,6 +24,7 @@
     width: 100% !important;
   }
 
+ 
   .card-title {
     position: absolute;
     top: 36%;
@@ -24,4 +42,11 @@
     color: #fff;
   }
 
+}
+.list-md .item-block .item-inner {
+  border-bottom: 1px solid #2ec95c;
+}
+.item-md-danger, .item-divider-md-danger {
+  color: #fff;
+  background-color: #00800c;
 }

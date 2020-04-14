@@ -1,4 +1,6 @@
-
+ion-icon[name='menu']:before {
+    content: url('../assets/icon/logoicon.ico');
+  }
 
     ion-card {
         margin: 0 !important;

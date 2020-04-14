@@ -38,7 +38,7 @@
     <ion-item class="compact">
       <ion-row no-padding>
         <ion-col col-8>
-          <button ion-button icon-only clear color="danger" (click)="changeQty(item, i, -1)">
+          <button ion-button icon-only clear (click)="changeQty(item, i, -1)">
             <ion-icon name="remove-circle"></ion-icon>
           </button>
           <button ion-button clear color="danger"> {{ item.qty }} </button>

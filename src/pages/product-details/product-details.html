@@ -10,7 +10,7 @@
   <ion-content>
 
     <ion-fab right edge (click)="openCart()">
-        <button ion-fab color="danger"><ion-icon name="cart"></ion-icon></button>
+        <button ion-fab><ion-icon name="cart"></ion-icon></button>
       </ion-fab> 
   
   <ion-card>
@@ -30,7 +30,7 @@
   
       <p [innerHTML]="product.description"></p>
   
-      <button ion-button icon-left block outline color="danger" (click)="addToCart(product)">
+      <button ion-button icon-left block (click)="addToCart(product)">
         <ion-icon name="basket"></ion-icon> Add to Cart
       </button>
   

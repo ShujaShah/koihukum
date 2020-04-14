@@ -12,7 +12,7 @@
         <div class="card-subtitle">Your needs our commitment...</div>
     </ion-card>
     <ion-list>
-      <ion-item (click) ="onHome()" menuClose>Home </ion-item>
+      <ion-item class ="item-icon-left" (click) ="onHome()" menuClose> Home </ion-item>
      <ion-item *ngFor="let category of categories" text-wrap (click) ="openCategoryPage(category)" menuClose>
        <ion-icon [name] ="category.icon"item-left large></ion-icon> 
        <h2> {{category.name}} </h2>
@@ -22,7 +22,7 @@
      <ion-item (click)="openBookingPage(category)" menuClose>Service Bookings</ion-item>
 
 
-     <ion-item-divider color="danger">Account</ion-item-divider>
+     <ion-item-divider>Account</ion-item-divider>
       <ion-item (click)="openPage('signup')" menuClose *ngIf="!loggedIn">
         <ion-icon name="md-clipboard" item-left large></ion-icon>
         <h2>Sign Up</h2>
