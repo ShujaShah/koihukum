@@ -3,6 +3,7 @@ import { NavController,LoadingController, NavParams } from 'ionic-angular';
 import * as WC from 'woocommerce-api';
 import {ProductDetails}from '../product-details/product-details';
 import { WoocommerceProvider } from '../../providers/woocommerce/woocommerce';
+import {SearchPage} from '../search/search';
 
 @Component({
   selector: 'page-products-by-category',
@@ -14,6 +15,7 @@ export class ProductsByCategory {
   products: any[];
   page: number;
   category: any;
+  searchQuery : string = "";
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private WP: WoocommerceProvider, 
     public loadingCtrl: LoadingController) {
@@ -70,6 +72,11 @@ export class ProductsByCategory {
     setTimeout(() => {
       loading.dismiss();
     }, 7000);
+  }
+  onSearch(event){
+    if(this.searchQuery.length > 0){
+      this.navCtrl.push(SearchPage, {"searchQuery": this.searchQuery});
+    }
   }
   
 

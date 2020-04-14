@@ -6,6 +6,9 @@
       </button>
       <ion-title>{{category.name}}</ion-title>
     </ion-navbar>
+    <ion-toolbar>
+      <ion-searchbar [(ngModel)]="searchQuery" (search)="onSearch($event)"></ion-searchbar>
+    </ion-toolbar>
   
   </ion-header>
   
