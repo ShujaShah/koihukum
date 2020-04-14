@@ -1,0 +1,18 @@
+<ion-header>
+
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>Please Book a Service </ion-title>
+    </ion-navbar>
+    <ion-toolbar>
+        <ion-searchbar [(ngModel)]="searchQuery" (search)="onSearch($event)"></ion-searchbar>
+    </ion-toolbar>
+  
+  </ion-header>
+  <ion-content>
+
+    <h1>Please Book a service here....</h1>
+  </ion-content>
+  

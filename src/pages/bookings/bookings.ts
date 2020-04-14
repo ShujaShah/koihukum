@@ -3,6 +3,7 @@ import { NavController,LoadingController, NavParams } from 'ionic-angular';
 import * as WC from 'woocommerce-api';
 import {ProductDetails}from '../product-details/product-details';
 import { WoocommerceProvider } from '../../providers/woocommerce/woocommerce';
+import {BookingDetails} from '../booking-details/booking-details';
 
 
 @Component({
@@ -45,7 +46,10 @@ export class Bookings {
   ionViewDidLoad() {
     console.log('ionViewDidLoad Bookings');
   }
-  
+   
+  openBookingPage(product){
+    this.navCtrl.push(BookingDetails,{ "product":product} );
+  }
   
 
 }

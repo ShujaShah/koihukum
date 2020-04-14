@@ -1,10 +1,9 @@
 <ion-header>
 
     <ion-navbar>
-        <ion-buttons start>
-            <button color="danger" ion-button icon menuToggle>
-              <ion-icon name="menu"></ion-icon></button>
-          </ion-buttons>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
       <ion-title>Book the Service</ion-title>
     </ion-navbar>
   
@@ -13,7 +12,7 @@
   
   <ion-content>
     <ion-list>
-      <ion-item *ngFor="let product of products" text-wrap>
+      <ion-item *ngFor="let product of products" text-wrap (click)= "openBookingPage(product)">
         <ion-thumbnail item-left>
           <img [src]="product.featured_src" />
         </ion-thumbnail>
