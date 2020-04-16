@@ -61,18 +61,7 @@ export class ProductsByCategory {
   openProductPage(product){
     this.navCtrl.push(ProductDetails,{ "product":product} );
   }
-  presentLoadingDefault() {
-    let loading = this.loadingCtrl.create({
-      content: 'Please wait...',
-      spinner: 'bubbles'
-    });
-  
-    loading.present();
-  
-    setTimeout(() => {
-      loading.dismiss();
-    }, 7000);
-  }
+ 
   onSearch(event){
     if(this.searchQuery.length > 0){
       this.navCtrl.push(SearchPage, {"searchQuery": this.searchQuery});

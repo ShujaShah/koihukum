@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, IonicPage, LoadingController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import {Menu} from '../menu/menu';
 import { HomePage} from '../home/home';
 import * as WC from 'woocommerce-api';
 import { PayPal, PayPalPayment, PayPalConfiguration } from '@ionic-native/paypal';
 import { WoocommerceProvider } from '../../providers/woocommerce/woocommerce';
+import { Thankyou } from '../thankyou/thankyou';
 @IonicPage({})
 @Component({
   selector: 'page-checkout',
@@ -192,7 +192,10 @@ export class Checkout {
             buttons: [{
               text: "OK",
               handler: () => {
-                this.navCtrl.setRoot(HomePage);
+               // this.navCtrl.setRoot(HomePage);
+              // this.navCtrl.setRoot(HomePage);
+              // this.navCtrl.popToRoot();  //navigates to the root page which in our case is home page..
+              this.navCtrl.push(Thankyou);
               }
             }]
           }).present();

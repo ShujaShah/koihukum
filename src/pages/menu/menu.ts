@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController} from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { Signup } from '../signup/signup';
 import { Login } from '../login/login';
@@ -8,7 +8,7 @@ import { ProductsByCategory } from '../products-by-category/products-by-category
 import { Storage } from '@ionic/storage';
 import { Cart } from '../cart/cart';
 import { WoocommerceProvider } from '../../providers/woocommerce/woocommerce';
-import {Bookings} from '../bookings/bookings'
+
 
 @IonicPage({})
 @Component({
@@ -119,8 +119,6 @@ export class Menu {
   onHome(){
     this.childNavCtrl.setRoot(HomePage);
   }
-  openBookingPage(category){
-    this.childNavCtrl.setRoot(Bookings,{"category" : category });
-  }
-
+  
+  
 }

@@ -19,8 +19,8 @@ import {Checkout} from '../pages/checkout/checkout'
 import { PayPal } from '@ionic-native/paypal';
 import { SearchPage } from '../pages/search/search';
 import {WoocommerceProvider} from '../providers/woocommerce/woocommerce';
-import { Bookings } from '../pages/bookings/bookings';
-import { BookingDetails } from '../pages/booking-details/booking-details';
+import {Thankyou} from '../pages/thankyou/thankyou';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -32,8 +32,8 @@ import { BookingDetails } from '../pages/booking-details/booking-details';
     Login,
     Checkout,
     SearchPage,
-    Bookings,
-    BookingDetails
+    Thankyou
+   
   ],
   imports: [
     BrowserModule,
@@ -52,8 +52,8 @@ import { BookingDetails } from '../pages/booking-details/booking-details';
     Login,
     Checkout,
     SearchPage,
-    Bookings,
-    BookingDetails
+    Thankyou
+    
   
   ],
   providers: [

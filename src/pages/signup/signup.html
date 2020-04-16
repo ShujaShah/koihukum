@@ -13,27 +13,27 @@
   
       <ion-item>
         <ion-label>First Name</ion-label>
-        <ion-input type="text" [(ngModel)]="newUser.first_name"></ion-input>
+        <ion-input type="text" required [(ngModel)]="newUser.first_name" ></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>Last Name</ion-label>
-        <ion-input type="text" [(ngModel)]="newUser.last_name"></ion-input>
+        <ion-input type="text" required [(ngModel)]="newUser.last_name"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>Email</ion-label>
-        <ion-input type="email" [(ngModel)]="newUser.email" (blur)="checkEmail()"></ion-input>
+        <ion-input type="email" required [(ngModel)]="newUser.email" (blur)="checkEmail()"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>Username</ion-label>
-        <ion-input type="text" [(ngModel)]="newUser.username"></ion-input>
+        <ion-input type="text" required  [(ngModel)]="newUser.username"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>Password</ion-label>
-        <ion-input type="password" [(ngModel)]="newUser.password"></ion-input>
+        <ion-input type="password" required [(ngModel)]="newUser.password"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>Confirm Password</ion-label>
-        <ion-input type="text" [(ngModel)]="newUser.confirm_password"></ion-input>
+        <ion-input type="text" required [(ngModel)]="newUser.confirm_password"></ion-input>
       </ion-item>
   
       <ion-item-divider>Billing Details</ion-item-divider>
