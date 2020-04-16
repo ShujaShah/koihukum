@@ -19,6 +19,7 @@ export class Checkout {
   paymentMethod: any;
   billing_shipping_same: boolean;
   userInfo: any;
+  order_number:any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage,
     public alertCtrl:AlertController, public payPal : PayPal, private WP: WoocommerceProvider,
@@ -145,6 +146,7 @@ export class Checkout {
                     }
                   }]
                 }).present();
+               
               })
 
             })
@@ -195,15 +197,15 @@ export class Checkout {
                // this.navCtrl.setRoot(HomePage);
               // this.navCtrl.setRoot(HomePage);
               // this.navCtrl.popToRoot();  //navigates to the root page which in our case is home page..
-              this.navCtrl.push(Thankyou);
+              this.navCtrl.push(Thankyou,{"order_number":response.order_number});
               }
             }]
           }).present();
-
+         
         })
-
+        
       })
-
+      
     }
 
 

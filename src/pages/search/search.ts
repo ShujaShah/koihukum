@@ -62,17 +62,6 @@ export class SearchPage {
   openProductPage(product){
     this.navCtrl.push(ProductDetails,{ "product":product} );
   }
-  presentLoadingDefault() {
-    let loading = this.loadingCtrl.create({
-      content: 'Please wait...',
-      spinner: 'bubbles'
-    });
-  
-    loading.present();
-  
-    setTimeout(() => {
-      loading.dismiss();
-    }, 5000);
-  }
+ 
 
 }
