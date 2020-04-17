@@ -20,6 +20,9 @@ import { PayPal } from '@ionic-native/paypal';
 import { SearchPage } from '../pages/search/search';
 import {WoocommerceProvider} from '../providers/woocommerce/woocommerce';
 import {Thankyou} from '../pages/thankyou/thankyou';
+import { SessionServiceProvider } from '../providers/session-service/session-service';
+import { OrdersPage } from '../pages/orders/orders';
+import { OrderDetailPage } from '../pages/order-detail/order-detail';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,9 @@ import {Thankyou} from '../pages/thankyou/thankyou';
     Login,
     Checkout,
     SearchPage,
-    Thankyou
+    Thankyou,
+    OrdersPage,
+    OrderDetailPage
    
   ],
   imports: [
@@ -52,7 +57,9 @@ import {Thankyou} from '../pages/thankyou/thankyou';
     Login,
     Checkout,
     SearchPage,
-    Thankyou
+    Thankyou,
+    OrdersPage,
+    OrderDetailPage
     
   
   ],
@@ -60,7 +67,9 @@ import {Thankyou} from '../pages/thankyou/thankyou';
     StatusBar,
     SplashScreen,
     PayPal,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}, WoocommerceProvider
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    WoocommerceProvider,
+    SessionServiceProvider
   ]
 })
 export class AppModule {}

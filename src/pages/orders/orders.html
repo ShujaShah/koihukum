@@ -1,0 +1,35 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Orders</ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+    <ion-list>
+        
+        <ion-item *ngFor="let order of orders" text-wrap  (click)="openOrderPage(order)">
+            <ion-thumbnail item-left>
+                <img [src]="order.customer.avatar_url" />
+            </ion-thumbnail>
+          <h2>Order id : {{ order.id }} </h2>
+    
+          <p>
+            {{order.created_at | date:'medium'}}
+          </p>
+          <p>
+              Amount : {{order.total}}
+          </p>
+    
+          <button ion-button icon clear item-right>
+            <ion-icon name="arrow-forward"></ion-icon>
+          </button>
+        </ion-item>
+    </ion-list>
+    <!-- <ion-infinite-scroll (ionInfinite)="loadMoreOrders($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll> -->
+</ion-content>

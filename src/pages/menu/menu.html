@@ -39,6 +39,11 @@
         <p>Welcome</p>
       </ion-item>
 
+      <ion-item  (click)="openPage('orders')" *ngIf="loggedIn" menuClose>
+        <ion-icon name="contact" item-left large></ion-icon>
+        <h2>Orders</h2>
+    </ion-item>
+
       <ion-item *ngIf="loggedIn" (click)="openPage('cart')" menuClose>
         <ion-icon name="cart" item-left large></ion-icon>
         <h2>Your Cart</h2>

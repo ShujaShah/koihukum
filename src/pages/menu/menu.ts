@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams,Events, ModalController,AlertController} from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { Signup } from '../signup/signup';
 import { Login } from '../login/login';
@@ -8,6 +8,7 @@ import { ProductsByCategory } from '../products-by-category/products-by-category
 import { Storage } from '@ionic/storage';
 import { Cart } from '../cart/cart';
 import { WoocommerceProvider } from '../../providers/woocommerce/woocommerce';
+import { OrdersPage } from '../orders/orders';
 
 
 @IonicPage({})
@@ -25,7 +26,8 @@ export class Menu {
   user: any;
   
   constructor(public navCtrl: NavController, public navParams: NavParams, 
-    public storage: Storage,public modalCtrl:  ModalController, private WP : WoocommerceProvider) {
+    public storage: Storage,public modalCtrl:  ModalController, private WP : WoocommerceProvider,
+    public alertCtrl: AlertController,private events: Events ) {
     this.homePage = HomePage;
     this.categories = [];
     this.user= {};
@@ -66,6 +68,30 @@ export class Menu {
       
     },(err)=>{
       console.log(err)
+    });
+    
+    
+    this.events.subscribe("updateMenu", () => {
+      this.storage.ready().then(() => {
+        this.storage.get("userLoginInfo").then((userLoginInfo) => {
+
+          if (userLoginInfo != null) {
+
+            console.log("User logged in...");
+            this.user = userLoginInfo;
+            console.log(this.user);
+            this.loggedIn = true;
+          }
+          else {
+            console.log("No user found.");
+            this.user = {};
+            this.loggedIn = false;
+          }
+
+        })
+      });
+
+
     })
   }
 
@@ -97,20 +123,53 @@ export class Menu {
     this.childNavCtrl.setRoot(ProductsByCategory,{"category" : category });
   }
 
-  openPage(pageName: string){
-    if(pageName == "signup"){
+  openPage(pageName: string) {
+
+    if(pageName=="Home")
+    {
+      // this.navCtrl.setRoot('HomePage'); 
+      // this.navCtrl.popToRoot();  
+      this.childNavCtrl.setRoot('HomePage');
+    }
+
+    if(pageName=="orders")
+    {
+      this.childNavCtrl.setRoot(OrdersPage);
+    }
+    if (pageName == "signup") {
       this.navCtrl.push(Signup);
     }
-    if(pageName == "login"){
+    if (pageName == "login") {
       this.navCtrl.push(Login);
     }
-    if(pageName == 'logout'){
-      this.storage.remove("userLoginInfo").then( () => {
-        this.user = {};
-        this.loggedIn = false;
-      })
+    if (pageName == 'logout') {
+
+
+      this.alertCtrl.create({
+        title: "Logout Confirmation",
+        message: "Are You Sure You Want To Logout?",
+        buttons: [
+          {
+            text: 'Cancel',
+            role: 'cancel',
+            handler: () => {
+              // console.log('Cancel clicked');
+            }
+          },  
+          {
+          text: "OK",
+          role:'cancel',
+          handler: () => {
+            this.storage.remove("userLoginInfo").then(() => {
+              this.user = {};
+              this.loggedIn = false;
+            })
+          } 
+        }]
+      }).present();
+     
     }
-    if(pageName == 'cart'){
+    if (pageName == 'cart') {
       let modal = this.modalCtrl.create(Cart);
       modal.present();
     }
@@ -119,6 +178,8 @@ export class Menu {
   onHome(){
     this.childNavCtrl.setRoot(HomePage);
   }
+
+
   
   
 }

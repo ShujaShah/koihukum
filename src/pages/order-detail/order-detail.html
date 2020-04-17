@@ -1,0 +1,60 @@
+<ion-header>
+
+    <ion-navbar>
+      <ion-title>Order Detail</ion-title>
+    </ion-navbar>
+  
+    
+  
+  </ion-header>
+  
+  
+  <ion-content padding>
+  
+    <ion-card> 
+      <ion-card-content>
+          <ion-card-title>
+  
+            <h2> Order Id : {{ order.id }} </h2>
+            
+            <h3 *ngIf="order.status=='cancelled'"><b style="color:grey">Canceled</b></h3>
+            <h3 *ngIf="order.status=='completed'"><b style="color:blue">Completed</b></h3>
+            <h3 *ngIf="order.status=='failed'"><b style="color:red">Failed</b></h3>
+            <h3 *ngIf="order.status=='on-hold'"><b style="color:orange">On Hold</b></h3>
+            <h3 *ngIf="order.status=='pending'"><b style="color:grey">Pending</b></h3>
+            <h3 *ngIf="order.status=='processing'"><b style="color:green">Processing</b></h3>
+            <h3 *ngIf="order.status=='refunded'"><b style="color:grey">Refunded</b></h3>
+            <p>
+              {{order.created_at | date:'medium'}}
+            </p>
+            <p>
+               Total Amount :  {{order.total}}
+            </p>
+
+             <table>
+            <thead>
+            <tr>
+              <th>Name</th>
+              &nbsp;&nbsp;&nbsp;<th>Qty</th>
+              &nbsp;  &nbsp;<th>Price</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr *ngFor="let item of order.line_items">
+              <td>{{item.name}}</td>
+             &nbsp; &nbsp;<td>{{item.quantity}}</td>
+              &nbsp; &nbsp;<td>{{item.subtotal}}</td>
+            </tr>
+
+            </tbody>
+          </table>
+           
+          </ion-card-title>
+  
+      </ion-card-content>
+    </ion-card>  
+    <button ion-button block color="danger" (click)="cancelOrder()" [disabled]="loader"
+     *ngIf="order.status!='cancelled'">Cancel Order  <ion-spinner name="bubbles" *ngIf="loader"></ion-spinner>
+    </button>
+  </ion-content>
