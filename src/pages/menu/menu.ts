@@ -103,7 +103,7 @@ export class Menu {
         if(userLoginInfo != null){
 
           console.log("User logged in...");
-          this.user = userLoginInfo.user;
+          this.user = userLoginInfo;
           console.log(this.user);
           this.loggedIn = true;
         }

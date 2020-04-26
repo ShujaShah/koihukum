@@ -1,6 +1,6 @@
 
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController,LoadingController } from 'ionic-angular';
 import { WoocommerceProvider } from '../../providers/woocommerce/woocommerce';
 import { SessionServiceProvider } from '../../providers/session-service/session-service';
 import { Storage } from '@ionic/storage';
@@ -20,7 +20,8 @@ export class OrderDetailPage {
   WooCommerce:any;
   loader:boolean;
   constructor(public alertCtrl:AlertController,public service:SessionServiceProvider, 
-    public Wp:WoocommerceProvider,public navCtrl: NavController, public navParams: NavParams) {
+    public Wp:WoocommerceProvider,public navCtrl: NavController, public navParams: NavParams,
+    public loadingCtrl:LoadingController) {
     this.order = this.navParams.get("order");
     this.WooCommerce = this.Wp.init();
     console.log("Order info===="+JSON.stringify(this.order));
@@ -43,7 +44,7 @@ export class OrderDetailPage {
           text: 'Cancel',
           role: 'cancel',
           handler: () => {
-            // console.log('Cancel clicked');
+
           }
         },  
         {
@@ -58,31 +59,19 @@ export class OrderDetailPage {
 
   confirmCancelOrder()
   {
-    this.loader=true;
-    this.order.status="cancelled";
-  //   return new Promise((resolve, reject) => {
-  //     this.WooCommerce.putAsync("orders", data1)
-  //       .then((data: any) => {
-  //         console.log("put success");
-  //         resolve((JSON.parse(data.toJSON().body)));
-  //       }, error => {
-  //         console.log("Error69----"+error);
-  //         reject(error)
-  //       }).catch((error: Error) => {
-  //         console.log("Error72----"+error);
-  //       reject(error);
-  //     });
-  //   });
-  // }
-   
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...',
+      spinner: 'bubbles'
+    });
+    loading.present();
 
-
+   const data = {"order":{"status":"cancelled"}}
       
-    this.WooCommerce.putAsync("orders/",this.order).then( (data) => {
-      this.loader=false;
-      console.log("order info after update====="+JSON.stringify(data));
-      this.service.showToast("Successfully Cancel Order");
-      // console.log("Order get Successfully===="+JSON.stringify(this.orders));
+    this.WooCommerce.putAsync("orders/"+this.order.id, data).then( (data) => {
+      loading.dismiss();
+      console.log("order info after update=="+JSON.stringify(data));
+      this.service.showToast("Successfully Cancelled Order");
+      // console.log("Order get Successfully=="+JSON.stringify(this.orders));
     }, (err) => {
       console.log("Failed to get Orders right now!!!!!!"+err);
 

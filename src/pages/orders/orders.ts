@@ -43,12 +43,14 @@ export class OrdersPage {
           loading.present();
 
       console.log("User info=="+JSON.stringify(userLoginInfo));
-      this.WooCommerce.getAsync("orders?filter[customer_id]="+userLoginInfo.user.id).then( (data) => {
-        this.orders = JSON.parse(data.body).orders;
+      this.WooCommerce.getAsync("orders?filter[customer_id]="+userLoginInfo.id).then( (data) => {
         loading.dismiss();
+        this.orders = JSON.parse(data.body).orders;
+        
         console.log("Order get Successfully===="+JSON.stringify(this.orders));
       }, (err) => {
         console.log("Failed to get Orders right now!!!!!!"+err);
+        loading.dismiss();
 
         this.service.showToast("Something Went Wrong Please Try Again");
         loading.dismiss();
